@@ -1,0 +1,126 @@
+{
+    "name": "yiisoft/yii2-app-basic",
+    "description": "Yii 2 Basic Project Template",
+    "keywords": ["yii2", "framework", "basic", "project template"],
+    "homepage": "http://www.yiiframework.com/",
+    "type": "project",
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/yiisoft/yii2/issues?state=open",
+        "forum": "http://www.yiiframework.com/forum/",
+        "wiki": "http://www.yiiframework.com/wiki/",
+        "irc": "irc://irc.freenode.net/yii",
+        "source": "https://github.com/yiisoft/yii2"
+    },
+    "minimum-stability": "dev",
+    "repositories": [
+        { "type": "composer", "url": "http://packages:st3r3olab@dev.e-service.bg/repos/" }
+
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "yiisoft/yii2": ">=2.0.5",
+        "yiisoft/yii2-bootstrap": "*",
+        "yiisoft/yii2-swiftmailer": "*",
+        "kartik-v/yii2-editable": "*",
+        "kartik-v/yii2-widget-fileinput": "*",
+        "kartik-v/yii2-mpdf": "dev-master",
+        "kartik-v/yii2-grid": "*",
+        "webvimark/grid-bulk-actions": "dev-master",
+        "phpmailer/phpmailer": "dev-master",
+        "imagine/imagine": "~0.5.0",
+        "phpoffice/phpexcel": "dev-develop",
+        "kartik-v/yii2-widgets": "dev-master",
+        "nizsheanez/yii2-asset-converter": "1.*",
+        "imagine/imagine": "~0.5.0",
+        "linslin/yii2-curl": "*",
+        "2amigos/yii2-transliterator-helper": "*"
+    },
+    "require-dev": {
+        "yiisoft/yii2-codeception": "*",
+        "yiisoft/yii2-debug": "*",
+        "yiisoft/yii2-gii": "*",
+        "yiisoft/yii2-faker": "*",
+        "eservice/ext" : "*",
+        "eservice/modules/users" : "*",
+        "eservice/modules/catalogue" : "*",
+        "eservice/modules/events" : "*",
+        "eservice/modules/notifications" : "*",
+        "eservice/modules/courses" : "*",
+        "eservice/modules/testcenter" : "*",
+        "eservice/modules/cms" : "*",
+        "eservice/modules/gallery" : "*"
+    },
+    "config": {
+        "process-timeout": 1800
+    },
+    "scripts": {
+        "post-create-project-cmd": [
+            "eservice\\composer\\Installer::postUpdateCmd"
+        ],
+        "post-update-cmd": [
+            "eservice\\composer\\Installer::postUpdateCmd"
+        ]
+    },
+    "autoload": {
+        "psr-4": {
+            "eservice\\" : "vendor/eservice/ext",
+            "eservice\\modules\\" : "vendor/eservice/modules"
+        }
+    },
+    "extra": {
+        "eservice\\composer\\Installer::postUpdateCmd": {
+            "setPermission": [
+                {
+                    "runtime": "0777",
+                    "web/assets": "0777",
+                    "yii": "0755"
+                }
+            ],
+            "generateCookieValidationKey": [
+                "config/web.php"
+            ],
+            "modulesInit" : [
+                {
+                    "dir" : "vendor/eservice/modules",
+                    "config": "config/modules.php",
+                    "modules" : {
+                        "users":{
+                            "runMigrations": 0,
+                            "enabled":1
+                        },
+                        "catalogue":{
+                            "runMigrations": 0,
+                            "enabled":1
+                        },
+                        "events":{
+                            "runMigrations": 0,
+                            "enabled":1
+                        },
+                        "courses":{
+                            "runMigrations": 0,
+                            "enabled":1
+                        },
+                        "testcenter":{
+                            "runMigrations": 0,
+                            "enabled":1
+                        },
+                        "gallery":{
+                            "runMigrations": 0,
+                            "enabled":1
+                        },
+                        "cms":{
+                            "runMigrations": 0,
+                            "enabled":0
+                        }
+
+                    }
+                }
+            ]
+        },
+        "asset-installer-paths": {
+            "npm-asset-library": "vendor/npm",
+            "bower-asset-library": "vendor/bower"
+        }
+    }
+}
